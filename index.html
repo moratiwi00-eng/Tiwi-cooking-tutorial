@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f5ee">
+<title>TIWI COOKING TUTORIAL | Studio Resep AI</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" aria-label="Tiwi Cooking Tutorial beranda"><span class="brand-mark">✳</span><span><b>TIWI</b><small>COOKING TUTORIAL</small></span></a>
+  <div class="top-actions"><span id="apiStatus" class="status"><i></i> Memeriksa AI…</span><button class="icon-button" id="helpBtn" aria-label="Bantuan">?</button></div>
+</header>
+<main class="shell">
+  <section class="hero">
+    <div class="hero-copy"><p class="eyebrow">YOUR AI KITCHEN STUDIO</p><h1>Resep jadi cerita.<br><em>Selangkah demi selangkah.</em></h1><p>Ubah ide masakan menjadi storyboard visual dan prompt siap produksi, dengan alur memasak yang tertata.</p><div class="hero-tags"><span>✦ Recipe-first workflow</span><span>◉ Visual continuity</span></div></div>
+    <div class="hero-art" aria-label="Ilustrasi mangkuk makanan"><div class="sun"></div><div class="leaf leaf-one"></div><div class="leaf leaf-two"></div><div class="plate"><div class="bowl"><div class="food food-a"></div><div class="food food-b"></div><div class="food food-c"></div><div class="herb">✣</div></div></div><span class="art-note">MADE WITH CARE</span></div>
+  </section>
+  <div class="workspace">
+    <aside class="form-card">
+      <div class="card-heading"><div><span class="step-pill">01 / SETUP</span><h2>Mulai dari resep</h2><p>Isi detail agar setiap visual mengikuti proses memasak.</p></div><span class="heading-icon">♨</span></div>
+      <form id="recipeForm">
+        <label for="recipe">Nama menu masakan <b>*</b></label><input id="recipe" name="recipe" required maxlength="180" placeholder="Contoh: Nasi goreng kampung">
+        <label for="steps">Langkah memasak / resep <b>*</b></label><textarea id="steps" name="steps" rows="6" required placeholder="Tulis bahan dan langkah secara berurutan.&#10;1. Siapkan bahan...&#10;2. Haluskan bumbu...&#10;3. Tumis hingga harum..."></textarea><p class="field-hint">Semakin jelas langkahnya, semakin tepat storyboard yang dibuat. AI dapat membuat draf bila resep belum lengkap, tetapi tetap perlu diperiksa.</p>
+        <label>Foto referensi masakan <span class="optional">OPSIONAL</span></label>
+        <label class="upload-zone" for="reference"><span class="upload-icon">↑</span><span><b id="uploadTitle">Pilih gambar referensi</b><small>JPG, PNG atau WEBP · maks. 8 MB</small></span><span class="upload-cta">Pilih file</span></label><input class="sr-only" id="reference" type="file" accept="image/png,image/jpeg,image/webp">
+        <div id="referencePreview" class="reference-preview" hidden><img id="referenceImage" alt="Pratinjau referensi"><button type="button" id="removeReference">Hapus gambar</button></div>
+        <div class="two-col"><div><label for="mode">Mode visual</label><select id="mode"><option value="faceless">Faceless · makanan & tangan</option><option value="character">Character · tampilkan karakter</option></select></div><div><label for="style">Gaya visual</label><select id="style"><option>Ultra-realistic</option><option>Anime</option><option>3D Pixar-inspired</option><option>3D cartoon</option><option>3D Clay</option><option>Chibi</option><option>Watercolor</option><option>Editorial food photography</option></select></div></div>
+        <div class="two-col"><div><label for="storyboardCount">Jumlah panel storyboard</label><select id="storyboardCount"><option>4</option><option selected>6</option><option>8</option><option>10</option><option>12</option><option>16</option><option>20</option></select></div><div><label for="sceneCount">Jumlah scene prompt</label><select id="sceneCount"><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10</option></select></div></div>
+        <label>Rasio visual</label><div class="ratio-picker"><label><input type="radio" name="ratio" value="9:16" checked><span><i class="ratio-tall"></i><b>9:16</b><small>Reels / TikTok</small></span></label><label><input type="radio" name="ratio" value="16:9"><span><i class="ratio-wide"></i><b>16:9</b><small>YouTube</small></span></label><label><input type="radio" name="ratio" value="1:1"><span><i class="ratio-square"></i><b>1:1</b><small>Feed</small></span></label></div>
+        <div class="lock-note"><span>♧</span><div><b>Continuity system aktif</b><small>Anti-anomali · Environment lock · Food & prop lock · Character lock</small></div></div>
+        <button class="primary-button" id="generateBtn" type="submit"><span>✦</span> Buat tutorial & storyboard <span class="button-arrow">↗</span></button>
+        <p class="privacy-note">Gambar AI memerlukan API yang sudah dikonfigurasi. Kunci API disimpan di server, bukan di browser.</p>
+      </form>
+    </aside>
+    <section class="results">
+      <div class="results-head"><div><span class="step-pill">02 / CREATION</span><h2>Studio storyboard</h2><p id="resultSub">Hasil tutorialmu akan tampil di sini.</p></div><button class="secondary-button" id="downloadAll" disabled>↓ Unduh hasil</button></div>
+      <div id="notice" class="notice" hidden role="status"></div>
+      <div id="emptyState" class="empty-state"><div class="empty-illustration"><div class="mini-plate"></div><span>✦</span><span>✧</span></div><h3>Dapur kreatifmu siap</h3><p>Isi resep di sebelah kiri, lalu buat storyboard untuk melihat setiap tahap memasak secara visual.</p><div class="empty-steps"><span>01 <b>Isi resep</b></span><span>02 <b>Susun storyboard</b></span><span>03 <b>Salin prompt</b></span></div></div>
+      <div id="resultsContent" hidden>
+        <div class="recipe-summary"><div><span class="summary-label">RECIPE BOARD</span><h3 id="outputTitle"></h3><p id="outputMeta"></p></div><button class="text-button" id="copyRecipe">Salin ringkasan ↗</button></div>
+        <div id="assumptionsBox" class="assumptions" hidden></div>
+        <div class="section-title"><div><span class="section-number">A</span><div><h3>Storyboard memasak</h3><p>Setiap panel mewakili satu aksi yang jelas.</p></div></div><button class="small-button" id="generateImages" disabled>✦ Hasilkan semua gambar</button></div>
+        <div id="storyboardGrid" class="storyboard-grid"></div>
+        <div class="section-title"><div><span class="section-number">B</span><div><h3>Prompt produksi</h3><p>Pasangan panel → satu scene video.</p></div></div><button class="small-button" id="copyAllPrompts">Salin semua prompt</button></div>
+        <div id="sceneList" class="scene-list"></div>
+        <div class="safety-box" id="safetyBox" hidden><b>♧ Catatan resep & keamanan</b><ul id="safetyList"></ul></div>
+        <div class="export-row"><button class="secondary-button" id="downloadJson">↓ Unduh JSON</button><button class="secondary-button" id="downloadPrompts">↓ Unduh prompt TXT</button></div>
+      </div>
+    </section>
+  </div>
+  <footer><span>✳ TIWI COOKING TUTORIAL</span><span>Made for the joy of cooking · v1.0</span></footer>
+</main>
+<dialog id="helpDialog"><div class="dialog-inner"><button class="dialog-close" id="closeHelp">×</button><span class="step-pill">QUICK GUIDE</span><h2>Cara menggunakan studio</h2><ol><li>Masukkan nama menu dan resep dengan langkah berurutan.</li><li>Tambahkan foto referensi bila ingin menyamakan plating atau tampilan.</li><li>Pilih mode, gaya, jumlah panel, scene, dan rasio.</li><li>Klik <b>Buat tutorial & storyboard</b> untuk membuat rencana dan prompt.</li><li>Klik <b>Hasilkan semua gambar</b> untuk meminta AI menggambar setiap panel. Proses ini dapat menggunakan biaya API.</li></ol><p><b>Catatan:</b> storyboard AI adalah alat bantu visual, bukan pengganti verifikasi resep. Periksa suhu, waktu, kematangan, alergi, dan keamanan pangan sebelum digunakan.</p><button class="primary-button" id="helpOk">Mengerti</button></div></dialog>
+<script src="/app.js" defer></script>
+</body></html>

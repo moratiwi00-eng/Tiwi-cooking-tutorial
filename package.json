@@ -1,0 +1,8 @@
+{
+  "name": "tiwi-cooking-tutorial",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TIWI COOKING TUTORIAL - storyboard and cooking prompt generator",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
